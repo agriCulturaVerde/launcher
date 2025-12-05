@@ -1,0 +1,9 @@
+[submodule "gateway"]
+	path = gateway
+	url = https://github.com/agriCulturaVerde/gateway.git
+[submodule "productos"]
+	path = productos
+	url = https://github.com/agriCulturaVerde/products.git
+[submodule "orders"]
+	path = orders
+	url = https://github.com/agriCulturaVerde/orders.git
