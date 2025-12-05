@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  nats-server:
+    image: nats:latest
+    ports:
+      - "8222:8222"
+  gateway:
+    build: ./gateway
+    ports:
+      - "${CLIENT_GATEWAY_PORT}:3000"
+    volumes:
+      - ./gateway/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3000
+      - NATS_SERVERS="nats://nats-server:4222"
+  products:
+    build: ./productos
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+    volumes:
+      - ./productos/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3001
+      - DATABASE_URL=mongodb://mongo:27017/productos
+      - NATS_SERVERS="nats://nats-server:4222"
+  mongo:
+    image: mongo:6.0
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: productos
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - '27017:27017'
+volumes:
+  mongo_data:
