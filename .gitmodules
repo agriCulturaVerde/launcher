@@ -10,3 +10,6 @@
 [submodule "payment"]
 	path = payment
 	url = https://github.com/agriCulturaVerde/payment.git
+[submodule "auth-ms"]
+	path = auth-ms
+	url = https://github.com/agriCulturaVerde/auth-ms.git
